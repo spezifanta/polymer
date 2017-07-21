@@ -2121,7 +2121,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
        * @suppress {missingProperties} Interfaces in closure do not inherit statics, but classes do
        */
       static _parseTemplateNode(node, templateInfo, nodeInfo) {
-        let noted = super._parseTemplateNode(node, templateInfo, nodeInfo);
+        let nodes = super._parseTemplateNode(node, templateInfo, nodeInfo);
         if (node.nodeType === Node.TEXT_NODE) {
           let parts = this._parseBindings(node.textContent, templateInfo);
           if (parts) {
@@ -2130,10 +2130,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             // (IE) evacipate an empty textNode following cloneNode/importNode.
             node.textContent = literalFromParts(parts) || ' ';
             addBinding(this, templateInfo, nodeInfo, 'text', 'textContent', parts);
-            noted = true;
+            nodes.push(node)
           }
         }
-        return noted;
+        return nodes;
       }
 
       /**
